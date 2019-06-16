@@ -5,7 +5,21 @@
     <title>WebRTC capture video and audio</title>
 </head>
 <body>
+    <div>
+            <label>audio Source:</label>
+            <select name="" id="audioSource"></select>
+    </div>
+    <div>
+            <label for="">audio Output</label>
+            <select name="" id="audioOutput"></select>
+    </div>
+    <div>
+            <label for="">video Source</label>
+            <select name="" id="videoSource"></select>
+    </div>
     <video autoplay playsinline id="player"></video>
+    <!--adapter  ブラウザ最適化するライブラリ -->
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <script src="./js/client.js"></script>
 </body>
 </html>
