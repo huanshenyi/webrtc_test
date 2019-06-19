@@ -3,6 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>WebRTC capture video and audio</title>
+    <style>
+      .none {
+              -webkit-filter: none;
+      }
+      .blur {
+              -webkit-filter:blur(3px);
+      }
+      .grayscale{
+              -webkit-filter:grayscale(1);
+      }
+      .inver{
+              -webkit-filter:invert(1);
+      }
+      .sepia{
+              -webkit-filter:sepia(1);
+      }
+    </style>
 </head>
 <body>
     <div>
@@ -23,9 +40,8 @@
                 <option value="None">None</option>
                 <option value="blur">ぼかし</option>
                 <option value="grayscale">グレースケール</option>
-                <option value="None">None</option>
-                <option value="None">None</option>
-                <option value="None">None</option>
+                <option value="inver">反転</option>
+                <option value="sepia">セピア</option>
         </select>
     </div>
     <video autoplay playsinline id="player"></video>

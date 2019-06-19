@@ -3,6 +3,7 @@
 var audioSource = document.querySelector("select#audioSource");
 var audioOutput = document.querySelector("select#audioOutput");
 var videoSource = document.querySelector("select#videoSource");
+var filtersSelect = document.querySelector("select#filter");
 
 var videoplay = document.querySelector("video#player");
 //video audio
@@ -78,3 +79,8 @@ if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
 start();
 // //使用するデバイスが変化する時に
 videoSource.onchange = start;
+
+filtersSelect.onchange = function(){
+    videoplay.className = filtersSelect.value;
+    
+}
