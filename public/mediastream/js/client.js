@@ -17,9 +17,22 @@ var picture = document.querySelector("canvas#picture");
 picture.width=320;
 picture.height=240;
 
-//
+//tracksを表示
 var divConstraints = document.querySelector("div#constraints");
 
+//recored 録画内容を表示するvideoタグs
+var recvideo = document.querySelector("video#recplayer");
+//録画開始button
+var btnRecord = document.querySelector("button#record");
+//play button
+var btnPlay = document.querySelector("button#recplay");
+// ダウロード btn 
+var btnDownload = document.querySelector("button#download");
+
+//データlist
+var buffer;
+//グロバル録画オブジェクト
+var mediaRecorder;
 //video audio の stream
 function gotMediaStream(stream){
     videoplay.srcObject = stream;
@@ -28,7 +41,8 @@ function gotMediaStream(stream){
     var videoTrack =  stream.getVideoTracks()[0];
     var videoConstraints = videoTrack.getSettings();
     divConstraints.textContent = JSON.stringify(videoConstraints,null,2);
-
+    
+    window.stream = stream;
     //全てのメディア設備を返す
     return navigator.mediaDevices.enumerateDevices();
 }
@@ -113,6 +127,67 @@ snapshot.onclick =()=>{
         0,0,picture.width,picture.height);
         //ダウロード する画像にもフィルターかける
         //invertColor();
+}
+
+function handleDataAvailable(e){
+    if(e && e.data && e.data.size >0){
+        buffer.push(e.data);
+    }
+}
+
+function startRecord(){
+    buffer = [];
+    var options = {
+        mimeType:"video/webm;codecs=vp8"
+    }
+    if(!MediaRecorder.isTypeSupported(options.mimeType)){
+        console.error(`${options.mimeType} is ダメ`);
+        return;
+    }
+    try{
+         mediaRecorder = new MediaRecorder(window.stream,options);
+    }catch(e){
+        console.error(e);
+        return
+    }
+    mediaRecorder.ondataavailable = handleDataAvailable;
+    mediaRecorder.start(10);
+}
+function stopRecord(){
+    mediaRecorder.stop();
+}
+//録画
+btnRecord.onclick=()=>{
+    if(btnRecord.textContent === "レコーダスタート"){
+        startRecord();
+        btnRecord.textContent = "レコーダーストップ";
+        btnPlay.disabled = true;
+        btnDownload.disabled = true;
+    }else{
+        stopRecord();
+        btnRecord.textContent = "レコーダスタート";
+        btnPlay.disabled = false;
+        btnDownload.disabled = false;
+    }
+}
+//play
+btnPlay.onclick = ()=>{
+    var blob = new Blob(buffer,{type: 'video/webm'});
+    recvideo.src = window.URL.createObjectURL(blob);
+    recvideo.srcObject = null;
+    recvideo.controls = true;
+    recvideo.play();
+}
+//ダウロード 
+btnDownload.onclick = ()=>{
+    var blob = new Blob(buffer,{type:'video/webm'});
+    var url = window.URL.createObjectURL(blob);
+    var a = document.createElement('a');
+
+    a.href = url;
+    a.style.display='none';
+    a.download = 'aaa.webm'
+    a.click();
 }
 
 // function invertColor(){

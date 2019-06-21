@@ -1,0 +1,37 @@
+# mediaのstreamを記録するapi
+MediaRecorder
+
+# 基本操作
+var mediaRecorder = new MediaRecorder(stream[,options]);
+
+#パラメータ
+stream  -->getUserMedia,<video>,<audio>,<canvas>から取得
+options 制限
+
+#  
+mimeType 
+
+#Api
+MediaRecorder.start(timeslice)
+  # timesliceは選択可能なパラメータ,使用すれば、決めた時間ごとにデータが保存される
+MediaRecorder.stop()
+  #
+MediaRecorder.pause
+  # 一時停止
+MediaRecorder.resume()
+  # 再開
+MediaRecorder.isTypeSupportted()
+  # 対応するタイプをみる
+
+# 事件
+MediaRecorder.ondataavailable
+  # データ記録するたびに発動する、もしtimeslice設定してなければ、記録止まったら、発動する
+
+  
+# 画面きょゆ
+  # getDisplayMedia
+var promise = navigator.mediaDevices.getDisplayMedia(constraints);
+
+   # constraints 任意ライブラリ
+   constraintsはgetUserMedia函数と同じ
+   chrome://flags
