@@ -2,7 +2,7 @@
 MediaRecorder
 
 # 基本操作
-var mediaRecorder = new MediaRecorder(stream[,options]);
+var mediaRecorder = new MediaRecorder(stream,[options]);
 
 #パラメータ
 stream  -->getUserMedia,<video>,<audio>,<canvas>から取得
@@ -27,11 +27,36 @@ MediaRecorder.isTypeSupportted()
 MediaRecorder.ondataavailable
   # データ記録するたびに発動する、もしtimeslice設定してなければ、記録止まったら、発動する
 
-  
-# 画面きょゆ
+=================================================================================  
+# 画面共有
   # getDisplayMedia
 var promise = navigator.mediaDevices.getDisplayMedia(constraints);
 
    # constraints 任意ライブラリ
-   constraintsはgetUserMedia函数と同じ
+   constraintsはgetUserMedia函数のパラメータと同じ
    chrome://flags
+
+====================================================================================
+# socket.IO
+
+# 送信 
+socket.emit()
+
+# あるルーム内のユーザーに送信
+io.in(room).emit()
+
+# 自分以外のあるルーム内のユーザーにメッセージ
+socket.to(room).emit()
+
+# 自分以外のすべてのユーザーにメッセージ
+socket.broadcast.emit()
+
+#メッセージ受けること
+socket.on('msg',function(data){...})
+
+# 二つのデータが存在するメッセージを受ける
+socket.on('msg',function(data1,data2){...})
+
+# emitのfuncに返り値を処理する方法が用意された
+S:socket.emit('action',data,function(arg1,arg2){...});
+C:socket.on('action',function(data,fn){fn('a','b');});
