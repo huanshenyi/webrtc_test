@@ -19,6 +19,7 @@
                 <label>room:</label>
                 <input type="text" id="room"></input>
                 <button id="connect">Conect</button>
+                <button id="leave" disabled>Leave</button>
             </td>
         </tr>
         <tr>
@@ -39,5 +40,12 @@
             </td>
         </tr>
     </table>
+    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <script src="./js/client.js"></script>
+    <script type="text/javascript">
+       onload =x=>{
+            var conn=io.connect('ws://localhost:8080');
+       }
+    </script>
 </body>
 </html>

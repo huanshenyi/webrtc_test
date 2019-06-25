@@ -40,11 +40,16 @@ var http_server = http.createServer(app);
 
 //サーバーとsocket.ioをリンクする
 var io = socketIo.listen(http_server);
-io.on('connection',(socket)=>{
+io.sockets.on('connection',(socket)=>{
+
+    socket.on('message',(room,date)=>{
+        socket.to(room).emit('message',room,socket.id,date)
+    });
+
     //ルームにjoin
    socket.on('join',(room)=>{
       socket.join(room);
-      var myRoom = io.adapter.rooms[room];
+      var myRoom = io.sockets.adapter.rooms[room];
       var users = Object.keys(myRoom.sockets).length;
       logger.log('the number of user in room is:'+users);
       //socket.emit('joined',room,socket.id);
@@ -55,7 +60,7 @@ io.on('connection',(socket)=>{
 
     //ルームから離れる
     socket.on('leave',(room)=>{
-        var myRoom = io.adapter.rooms[room];
+        var myRoom = io.sockets.adapter.rooms[room];
         var users = Object.keys(myRoom.sockets).length;
         // users - 1;
         logger.log('the number of user in room is:'+(users-1));
