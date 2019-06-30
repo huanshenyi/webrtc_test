@@ -1,0 +1,27 @@
+# プライベートネットワークをパブリックにする
+NAT(network address translator)
+   - Full Cone NAT 完全锥形
+   - Address Restricted Cone NAT  ip制限錐形
+   - Port Restricted Cone NAT   port 制限錐形
+
+# 仲介、お互いのpublicのネット情報を交換用
+STUN(Simple Traversal of UDP Through NAT)
+   -1 c1,c2 STUNに向けてメッセージを発信
+   -2 パブリックipとportを交換
+   -3 c1->c2, c2->c1, あるいはport推測
+
+   RFC STUNプロトコル
+   -1 RFC3489/STUN
+      Simple Traversal of UDP Through NAT # 成功率良くない UDPの制限が多い
+   -2 RFC5389/STUN
+      Session Traversal Utilities for NAT
+
+   - 20 byteのSTUN header
+     - 
+   - Bodyの中に0,あるいは複数のAttribute           
+
+#　クラウドサーバー、streamデータの送信専用
+TURN(Traversal Using Relays around NAT)
+
+# 以上のものをパッケージ化して、最優のもの,ルートを選択 
+ICE (Interactive Connectivity Establishment)
