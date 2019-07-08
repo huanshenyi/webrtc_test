@@ -16,8 +16,10 @@ STUN(Simple Traversal of UDP Through NAT)
    -2 RFC5389/STUN
       Session Traversal Utilities for NAT
 
-   - 20 byteのSTUN header
-     - 
+   - 20 byteのSTUN Header
+     - 2 byte (16bit)のタイプ
+     - 2 byte のメッセージ長さ,メッセージのHeaderは含まない
+     - 16 byte (128bit)の業務ID,requestとresponseの業務IDは同じ
    - Bodyの中に0,あるいは複数のAttribute           
 
 #　クラウドサーバー、streamデータの送信専用
@@ -25,3 +27,7 @@ TURN(Traversal Using Relays around NAT)
 
 # 以上のものをパッケージ化して、最優のもの,ルートを選択 
 ICE (Interactive Connectivity Establishment)
+    - ICE Candidata
+       Candidataはアドレス(ip,port)
+       例:a=candidate:...UDP...192.169.1.2 1816 typ host
+    - Candidata   
