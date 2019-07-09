@@ -30,4 +30,31 @@ ICE (Interactive Connectivity Establishment)
     - ICE Candidata
        Candidataはアドレス(ip,port)
        例:a=candidate:...UDP...192.169.1.2 1816 typ host
-    - Candidata   
+    - Candidataのタイプ
+      - Host_Engine_Candidata (自分のインタネット回線らへん)
+        - 自分のパソコンの全てのipやportを取得
+      - Reflexive_Candidata (反射候補)NATを通過後のipアドレス
+      - Relay_Candidata リレー候補(中継)TURNサービスを通過後のipアドレス
+   -ICEの役割
+    - Candidataを集まる   
+    - Candidata Pairのsort (優先順位の高い順からテストする)
+    - 繋がるかのテストをする
+
+SDP(Session Description Protocol)
+一種のデーターフォーマットのプロトコル,データー送信プロトコルに使われることが多い
+メディアデータとネットデータ
+例:
+   v=0(バージョン,基本は0)
+   o=jdoe 2890844526 2890842807 IN IP4 10.0.1.1(オーナー、所有者,このip別に使用しない)
+   s=
+   c=IN IP4 192.0.2.3(コナクション)
+   t= 0 0
+   a=ice-pwd:asd88fgpdd777uzjYhagzg
+   a=ice-ufrag:8hhY
+   m=audio 45664 RTP/AVP 0 (交換メディア情報,今回はaudio)
+   b=RS:0
+   b=RS:0
+   a=rtpmap:0 PCMU/8000(メディアaudioのbuildの形式)
+   a=candidate:1 1 UDP 2130706431 10.0.1.1 8998 typ host(二種類のCandidataを検出)
+   a=candidate:2 1 UDP 1694498815 192.0.2.3 45664 typ srflx raddr(二種類のCandidataを検出)
+10.0.1.1 rport 8998   

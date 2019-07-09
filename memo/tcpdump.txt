@@ -1,0 +1,9 @@
+# tcpdump
+tcpdump -i eth0 src port 80 -xx -Xx 0 -w test.cap
+  - -i:(network interface controllerネットワークカード)を指定
+  - src: パッケージどこからきたのかを示す
+  - port: portを示す
+  - -xx: 16進数でパッケージの中身を表示
+  - -X:  ASCIIcodeで表示
+  - -s 0: パッケージすべての内容取得
+  - -w : ファイルに書き込む
