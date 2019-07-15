@@ -1,0 +1,20 @@
+# ipフィルター
+
+# 送り先のip 
+ip.dst == 192.168.1.2
+# 送り元のip
+ip.src == 192.168.1.2
+# ip指定
+ip.addr == 192.168.1.2
+# tcp_port指定
+tcp.port == 8080
+# udp_port指定
+udp.port == 3478
+# 送り先指定のportフィルター
+udp.dstport == 3478
+# 送り元指定のportフィルター
+udp.srcport == 3478
+# udp長さ
+udp.length<30
+# tcp長さ
+tcp.length<30
