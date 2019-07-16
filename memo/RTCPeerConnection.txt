@@ -1,0 +1,15 @@
+# 基本形式
+pc = new RTCPeerConnection([configuration]);
+# RTCPeerConnection方法分類
+  - メディア協商
+  - Stream/Track
+  - 送信関連方法 
+  - 統計関連方法
+
+
+# メディア協商
+createOffer
+  - aPromise=myPeerConnection.createOffer([options]);
+createAnswer
+setLocalDescription
+setRemoteDescription
