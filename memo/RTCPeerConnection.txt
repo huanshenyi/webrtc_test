@@ -12,4 +12,20 @@ createOffer
   - aPromise=myPeerConnection.createOffer([options]);
 createAnswer
 setLocalDescription
+  - aPromise = myPc.setLocalDescription(sessionDescription);
 setRemoteDescription
+  - aPromise = myPc.setRemoteDescription(sessionDescription);
+
+# Track
+- addTrack
+                          # どんなtrackをaddするのか、音声か動画か,streamはgetUsermedeaのapiで取得した
+  rtpSender=myPc.addTrack(track,stream)
+  Parameters
+  - track  (RTCPeerConnectionの挿入するtrack)
+  - stream (track存在するのstreamを指定)
+- removeTrack
+  - myPc.removeTrack(rtpSender)
+
+# イベント
+onnegotiationneeded  メディア相談
+onicecandidate       iceの候補受けとった時に発生するイベント
