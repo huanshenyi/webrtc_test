@@ -1,14 +1,25 @@
 <html>
     <head>
         <title>WebRTC PeerConnection</title>
+        <style>
+        </style>
     </head>
     <body>
-        <div>
-            <video src="" id="localvideo" autoplay playsinline></video>
-            <video src="" id="remotevideo" autoplay playsinline></video>
-            <!--データー採集用-->
+        <div id="preview">
+            <div>
+                    <h2>Local:</h2>
+                    <video src="" id="localvideo" autoplay playsinline></video>
+                    <h2>Offer SDP:</h2>
+                    <textarea id="offer"></textarea>
+            </div>
+            <div>
+                    <h2>Remote:</h2>
+                    <video src="" id="remotevideo" autoplay playsinline></video>
+                    <h2>Answer SDP:</h2>
+                    <textarea id="answer"></textarea>
+            </div>
+            
             <button id="start">Start</button>
-            <!--データー送信用-->
             <button id="call">Call</button>
             <button id="hangup">HangUp</button>
         </div>

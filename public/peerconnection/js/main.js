@@ -7,6 +7,9 @@ var btnStart = document.querySelector("button#start")
 var btnCall = document.querySelector("button#call")
 var btnHangup = document.querySelector("button#hangup")
 
+var offer = document.querySelector("textarea#offer")
+var answer = document.querySelector("textarea#answer")
+
 //ローカルstreamをグロバール用
 var localStream;
 var pc1;
@@ -35,7 +38,7 @@ function start(){
             video:true,
             audio:false
         }
-        navigator.mediaDevices.getUserMedia(constraints).then(getMediaStream).catch(handelError);
+        navigator.mediaDevices.getDisplayMedia(constraints).then(getMediaStream).catch(handelError);
     }
 }
 
@@ -49,6 +52,7 @@ function handelOfferError(err){
 
 function getOffer(desc){
     pc1.setLocalDescription(desc);
+    offer.value = desc.sdp; //Session Description Protocolを表示
     // send desc to signal(信令サーバー)
     // receive desc from signal
     pc2.setRemoteDescription(desc);
@@ -57,6 +61,7 @@ function getOffer(desc){
 
 function getAnswer(desc){
    pc2.setLocalDescription(desc);
+   answer.value = desc.sdp;
    //send desc to signal
    //receive desc to signal
    pc1.setRemoteDescription(desc);
@@ -83,6 +88,8 @@ function call(){
       offerToRecieveVideo:1
     }
     pc1.createOffer(offerOptions).then(getOffer).catch(handelOfferError);
+    btnCall.disabled = true
+    btnHangup.disabled = false
 }
 
 function hangup(){
@@ -90,6 +97,7 @@ function hangup(){
     pc2.close();
     pc1= null;
     pc2= null;
+    btnCall.disabled = false
 }
 
 btnStart.onclick = start;

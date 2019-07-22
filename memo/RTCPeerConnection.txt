@@ -1,5 +1,13 @@
 # 基本形式
 pc = new RTCPeerConnection([configuration]);
+     # configuration
+       sequence<RTCIceServer>   iceServers;
+       RTCIceTransportPolicy    iceTransportPolicy = "all";
+       RTCBundlePolicy          rtcpMuxPolicy = "balanced";
+       DOMString                peerIdentity
+       sequence<RTCCertificate> certificates;
+       [EnforceRange]
+       octet                    iceCandidatePollSize = 0;  
 # RTCPeerConnection方法分類
   - メディア協商
   - Stream/Track

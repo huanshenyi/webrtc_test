@@ -1,0 +1,46 @@
+SDP(Session Description Protocol)
+<type>=<value>
+- Session Description
+   v=(protocol version) #使用するバージョン 基本は1
+   o=(owner/create and session identifier) # オーナー 
+   s=(session name)
+   c=*(conn info-optional if included at session-level) ＃ コネクタのデーター、session自動で設定される為、あんまり意味はない
+   a=*(zero or more session attribute lines) # グロバールパラメタの設定
+- Time Description
+   t=(time the session is active) # 存在時間 0 0 と表示されたら永遠存在するという意味
+   r=*(zero or more repeat times) # 繰り返した数
+- Media Description
+   m=(media name and transport address)
+   c=*(conn info - optional if included at session-level)
+   b=*(bandwidth information) # 帯域幅のデータ
+   a=*(zero or more session attribute lines) #
+
+Version # 必須
+ v=0 SDPのバージョン
+
+Session Name  # 必須
+ s=<session name> s=- はsession名を無視
+
+Origion/Owner #必須
+    o=<username><session id><version><network type><address type><address> 
+    例:o=- 7017624586836067756 2 IN IP4 127.0.0.1
+
+Connection Data #必須ではない
+    c=<network type><address type><connection address>
+    例 c=IN IP4 0.0.0.0
+
+Media Announcements  # 必須
+    m=<media><port><transport><fmt/payload type list> 
+    例: m=audio 1024 UDP/TLS/RTP/SAVPF 111 103 104 9 0 8 106 105 13 126
+
+Suggested Attributes #必須ではない
+    a=<TYPE>or a=<TYPE>:<VALUES>
+    例: a=framerate:<ping速度>
+
+rtpmap #必須ではない
+    a=rtpmap:<fmt/payload type><encoding name>/<clockrate>[/<encodingparameters>]
+    例: a=rtpmap:103 ISAC/16000
+
+fmtp #必須ではない
+    a=fmtp:<format/payload type> parameters
+    例: a=fmtp:103 apt=106

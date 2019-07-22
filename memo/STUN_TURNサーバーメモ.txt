@@ -1,0 +1,21 @@
+rfc5766-turn-server
+
+coTurn
+
+ResTurn
+
+coTurn をダンロード https://github.com/coturn/coturn
+./configure --prefix=/usr/local/coturn
+
+build make && make install
+
+coTurnサーバーの設定
+listening-port=3478          #listenのport
+external-ip=39.105.185.198   #クラウドのpublicIP
+user=aaaaaa:bbbbbb           #アクセス stun/turnサービスのusernameとpassword
+realm=stun.xxx.cn            #ドメイン
+
+# サーバー起動
+turnserver -c ./etc/turnserver.conf
+# .bash_config
+export PATH=/usr/local/coturn/bin
