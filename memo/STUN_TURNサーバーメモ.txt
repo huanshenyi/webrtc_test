@@ -1,11 +1,23 @@
-rfc5766-turn-server
+STUN/TURNが混じってるのが一般的
 
-coTurn
+rfc5766-turn-server 
+  # 昔googleが推進したらしい
+
+coTurn 
+  # url https://github.com/coturn/coturn
+  # 
 
 ResTurn
+  # 老朽化
 
 coTurn をダンロード https://github.com/coturn/coturn
 ./configure --prefix=/usr/local/coturn
+
+ls -alt Makefile
+
+make -j 2
+
+sudo make install
 
 build make && make install
 
@@ -16,6 +28,45 @@ user=aaaaaa:bbbbbb           #アクセス stun/turnサービスのusernameとpa
 realm=stun.xxx.cn            #ドメイン
 
 # サーバー起動
-turnserver -c ./etc/turnserver.conf
+./bin/turnserver -c ./etc/turnserver.conf
 # .bash_config
 export PATH=/usr/local/coturn/bin
+
+Configurations
+
+# bundlePolicy
+  Balanced: 音声と映像各自の軌道(tracks)
+  max-compat: 軌道(tracks)ごとに伝送通路を持たせる
+  max-bundle: 一つの通路にばんどする(webrtcが推奨される,証明ショウは一つだけで済む)
+# certificates
+  証明証group
+# iceCandidatePoolSize
+  16位の整数 ,価が変化すると 
+
+# iceTransportPolicy
+  iceの伝送策略を指定
+  - relay 中継候補だけ
+  - all   全て(defaultはallを使用)
+
+ 3. 
+  # iceServers
+    - RTCIceServerで組み合わせた,RTCIceServer毎ice代理である
+      - credential  信任状,TURNサービス使用
+      - credentialType  タイプ次第でpassword or oauth(key,証明証)
+      - urls サーバー内のurlリストに繋げる為のlist
+      - username ユーザー名、TURNサービス使用
+
+ 4.
+  # rtcpMuxPolicy
+    - negotiate RTCP収集とRTPの再利用
+    - require RTCPとRTP再利用可能なice候補だけを選ぶ,RTCP再利用不可能であれば,失敗
+
+addIceCandidate
+# 基本形式
+  aPromise = pc.addICeCandidate(candidate); 
+# candidate
+      属性         説明
+  - candidate   詳細内容 
+  - sdpMid      候補関係のmedia-streamのタグ
+  - sdpMLineIndex SDPのm=index (例えば:音声は1,映像が2)
+  - usernameFragment remotoの唯一の識別シグナル
