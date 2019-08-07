@@ -54,10 +54,10 @@ io.sockets.on('connection',(socket)=>{
       var myRoom = io.sockets.adapter.rooms[room];
       var users = Object.keys(myRoom.sockets).length;
       logger.log('the number of user in room is:'+users);
-      if(user < USERCOUNT) {
+      if(users < USERCOUNT) {
           socket.emit('joined', room, socket.id) //自分以外部屋にいるすべての人にメッセージ
           if (users > 1) {
-              socket.to(room).emit('otherjoin', room);
+              socket.to(room).emit('otherjoin', room, socket.id);
           }
       }else {
           socket.leave(room);

@@ -18,6 +18,10 @@ pc = new RTCPeerConnection([configuration]);
 # メディア協商
 createOffer
   - aPromise=myPeerConnection.createOffer([options]);
+    # options
+      - iceRestart: iceを再起動することになる,Candidateの再度収取になる
+
+      - voiceActivityDetection: 音声offの検査行うかどうか,defaultは開いてる
 createAnswer
 setLocalDescription
   - aPromise = myPc.setLocalDescription(sessionDescription);
